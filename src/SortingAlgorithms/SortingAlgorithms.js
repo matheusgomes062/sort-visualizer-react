@@ -32,8 +32,8 @@ function doMerge(
   let i = startIdx;
   let j = middleIdx + 1;
   while (i <= middleIdx && j <= endIdx) {
-    animations.push([i, j]);
-    animations.push([i, j]);
+    // animations.push([i, j]);
+    // animations.push([i, j]);
     if (auxiliaryArray[i] <= auxiliaryArray[j]) {
       animations.push([k, auxiliaryArray[i]]);
       mainArray[k++] = auxiliaryArray[i++];
@@ -44,15 +44,15 @@ function doMerge(
   }
 
   while (i <= middleIdx) {
-    animations.push([i, i]);
-    animations.push([i, i]);
+    // animations.push([i, i]);
+    // animations.push([i, i]);
     animations.push([k, auxiliaryArray[i]]);
     mainArray[k++] = auxiliaryArray[i++];
   }
 
   while (j <= endIdx) {
-    animations.push([j, j]);
-    animations.push([j, j]);
+    // animations.push([j, j]);
+    // animations.push([j, j]);
     animations.push([k, auxiliaryArray[j]]);
     mainArray[k++] = auxiliaryArray[j++];
   }
@@ -83,12 +83,7 @@ function selectionSortHelper(
     for (let j = i + 1; j < mainArray.length; j++) {
       if (less(mainArray[j], mainArray[min])) min = j;
     }
-
-    let swap = mainArray[i];
-    animations.push([i, mainArray[min]]);
-    animations.push([min, swap]);
-    mainArray[i] = mainArray[min];
-    mainArray[min] = swap;
+    exchange(mainArray, i, min, animations);
     // exchange(mainArray, i, min, animations);
   }
 }
@@ -103,6 +98,28 @@ function less(v, w) {
 
 function exchange(a, i, j, animations) {
   let swap = a[i];
+  animations.push([i, a[j]]);
+  animations.push([j, swap]);
   a[i] = a[j];
   a[j] = swap;
+}
+
+//------------------------------------------------------
+// INSERTION SORT
+//------------------------------------------------------
+
+export function getInsertionSortAnimations(array) {
+  const animations = [];
+  if (array.length <= 1) return array;
+  insertionSortHelper(array, 0, array.length - 1, animations);
+  return animations;
+}
+
+function insertionSortHelper(mainArray, startIdx, endIdx, animations) {
+  if (startIdx === endIdx) return;
+  for (let i = 1; i < mainArray.length; i++) {
+    for (let j = i; j > 0 && less(mainArray[j], mainArray[j - 1]); j--) {
+      exchange(mainArray, j, j - 1, animations);
+    }
+  }
 }
