@@ -70,13 +70,7 @@ export function getSelectionSortAnimations(array) {
   return animations;
 }
 
-function selectionSortHelper(
-  mainArray,
-  startIdx,
-  endIdx,
-  auxiliaryArray,
-  animations
-) {
+function selectionSortHelper(mainArray, startIdx, endIdx, animations) {
   if (startIdx === endIdx) return;
   for (let i = 0; i < mainArray.length; i++) {
     let min = i;
@@ -84,7 +78,6 @@ function selectionSortHelper(
       if (less(mainArray[j], mainArray[min])) min = j;
     }
     exchange(mainArray, i, min, animations);
-    // exchange(mainArray, i, min, animations);
   }
 }
 
@@ -92,8 +85,6 @@ function less(v, w) {
   if (v < w) {
     return true;
   } else return false;
-  // if (v === 0) return 0;
-  // else return -1;
 }
 
 function exchange(a, i, j, animations) {
