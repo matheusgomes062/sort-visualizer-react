@@ -81,19 +81,13 @@ function selectionSortHelper(
   for (let i = 0; i < mainArray.length; i++) {
     let min = i;
     for (let j = i + 1; j < mainArray.length; j++) {
-      animations.push([i, j]);
-      animations.push([i, j]);
       if (less(mainArray[j], mainArray[min])) min = j;
     }
 
     let swap = mainArray[i];
-    animations.push([i, min]);
-    animations.push([i, min]);
     animations.push([i, mainArray[min]]);
-    mainArray[i] = mainArray[min];
-    animations.push([i, min]);
-    animations.push([i, min]);
     animations.push([min, swap]);
+    mainArray[i] = mainArray[min];
     mainArray[min] = swap;
     // exchange(mainArray, i, min, animations);
   }

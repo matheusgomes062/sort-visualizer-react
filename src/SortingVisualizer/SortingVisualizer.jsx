@@ -5,7 +5,7 @@ import {
 } from "../SortingAlgorithms/SortingAlgorithms.js";
 import "./SortingVisualizer.css";
 
-const NUMBER_OF_ARRAY_BARS = 5;
+const NUMBER_OF_ARRAY_BARS = 100;
 const PRIMARY_COLOR = "blue";
 const SECONDARY_COLOR = "pink";
 const ANIMATION_SPEED_MS = 500;
@@ -35,7 +35,6 @@ export default class SortingVisualizer extends React.Component {
 
   mergeSort() {
     const animations = getMergeSortAnimations(this.state.array);
-    console.log(animations);
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName("array-bar");
       const isColorChange = i % NUMBER_OF_ANIMATIONS !== NUMBER_OF_VALUES;
@@ -62,21 +61,16 @@ export default class SortingVisualizer extends React.Component {
 
   selectionSort() {
     const animations = getSelectionSortAnimations(this.state.array);
-    console.log(animations);
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName("array-bar");
-      let isColorChange;
-      let barras = NUMBER_OF_ARRAY_BARS;
-      if (barras * 2 === i) {
-        isColorChange = true;
-        barras = barras - 2;
-      } else isColorChange = false;
-      console.log(i);
-      console.log(isColorChange);
+      let isColorChange = true;
+      // let barras = NUMBER_OF_ARRAY_BARS;
+      // if (barras * 2 === i) {
+      //   isColorChange = true;
+      //   barras = barras - 2;
+      // } else isColorChange = false;
       if (!isColorChange) {
         const [barOneIdx, barTwoIdx] = animations[i];
-        console.log(arrayBars[barOneIdx]);
-        console.log(arrayBars[barTwoIdx]);
         const barOneStyle = arrayBars[barOneIdx].style;
         const barTwoStyle = arrayBars[barTwoIdx].style;
         const color = i % 2 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
@@ -87,7 +81,6 @@ export default class SortingVisualizer extends React.Component {
         }, i * ANIMATION_SPEED_MS);
       } else {
         setTimeout(() => {
-          console.log("entrou");
           const [barOneIdx, newHeight] = animations[i];
           const barOneStyle = arrayBars[barOneIdx].style;
           barOneStyle.height = `${newHeight}px`;
