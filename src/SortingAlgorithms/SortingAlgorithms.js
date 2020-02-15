@@ -65,7 +65,6 @@ function doMerge(
 export function getSelectionSortAnimations(array) {
   const animations = [];
   if (array.length <= 1) return array;
-  const auxiliaryArray = array.slice();
   selectionSortHelper(array, 0, array.length - 1, animations);
   return animations;
 }
@@ -111,6 +110,39 @@ function insertionSortHelper(mainArray, startIdx, endIdx, animations) {
   for (let i = 1; i < mainArray.length; i++) {
     for (let j = i; j > 0 && less(mainArray[j], mainArray[j - 1]); j--) {
       exchange(mainArray, j, j - 1, animations);
+    }
+  }
+}
+
+//--------------------------------------------------------
+//  SHELL SORT
+//--------------------------------------------------------
+
+export function getShellSortAnimations(array) {
+  const animations = [];
+  if (array.length <= 1) return array;
+  shellSortHelper(array, 0, array.length - 1, animations);
+  return animations;
+}
+
+function shellSortHelper(mainArray, startIdx, endIdx, animations) {
+  if (startIdx === endIdx) return;
+  // 3x+1 increment sequence: 1, 4, 13, 40, 121, 364, 1093
+  let n = mainArray.length;
+  let h = 1;
+  while (h < n / 3) {
+    h = 3 * h + 1;
+  }
+
+  while (h >= 1) {
+    for (let i = h; i < n; i++) {
+      for (
+        let j = i;
+        j >= h && less(mainArray[j], mainArray[j - h]);
+        j = j - h
+      ) {
+        exchange(mainArray, j, j - h, animations);
+      }
     }
   }
 }

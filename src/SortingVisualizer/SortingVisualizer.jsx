@@ -2,11 +2,12 @@ import React from "react";
 import {
   getMergeSortAnimations,
   getSelectionSortAnimations,
-  getInsertionSortAnimations
+  getInsertionSortAnimations,
+  getShellSortAnimations
 } from "../SortingAlgorithms/SortingAlgorithms.js";
 import "./SortingVisualizer.css";
 
-const NUMBER_OF_ARRAY_BARS = 300;
+const NUMBER_OF_ARRAY_BARS = 100;
 const PRIMARY_COLOR = "blue";
 const SECONDARY_COLOR = "pink";
 const ANIMATION_SPEED_MS = 20;
@@ -109,7 +110,30 @@ export default class SortingVisualizer extends React.Component {
     }
   }
 
-  heapSort() {}
+  shellSort() {
+    const animations = getShellSortAnimations(this.state.array);
+    for (let i = 0; i < animations.length; i++) {
+      const arrayBars = document.getElementsByClassName("array-bar");
+      let isColorChange = true;
+      if (!isColorChange) {
+        const [barOneIdx, barTwoIdx] = animations[i];
+        const barOneStyle = arrayBars[barOneIdx].style;
+        const barTwoStyle = arrayBars[barTwoIdx].style;
+        const color = i % 2 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+
+        setTimeout(() => {
+          barOneStyle.backgroundColor = color;
+          barTwoStyle.backgroundColor = color;
+        }, i * ANIMATION_SPEED_MS);
+      } else {
+        setTimeout(() => {
+          const [barOneIdx, newHeight] = animations[i];
+          const barOneStyle = arrayBars[barOneIdx].style;
+          barOneStyle.height = `${newHeight}px`;
+        }, i * ANIMATION_SPEED_MS);
+      }
+    }
+  }
 
   bubbleSort() {}
 
@@ -132,6 +156,7 @@ export default class SortingVisualizer extends React.Component {
         <button onClick={() => this.mergeSort()}>Merge Sort</button>
         <button onClick={() => this.selectionSort()}>Selection Sort</button>
         <button onClick={() => this.insertionSort()}>Insertion Sort</button>
+        <button onClick={() => this.shellSort()}>Shell Sort</button>
         <button onClick={() => this.resetArray()}>Bubble Sort</button>
       </div>
     );
