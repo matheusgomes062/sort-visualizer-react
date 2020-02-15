@@ -127,7 +127,7 @@ export function getShellSortAnimations(array) {
 
 function shellSortHelper(mainArray, startIdx, endIdx, animations) {
   if (startIdx === endIdx) return;
-  // 3x+1 increment sequence: 1, 4, 13, 40, 121, 364, 1093
+  // 3x+1 increment sequence: 1, 4, 13, 40, 121, 364, 1093 ...
   let n = mainArray.length;
   let h = 1;
   while (h < n / 3) {
