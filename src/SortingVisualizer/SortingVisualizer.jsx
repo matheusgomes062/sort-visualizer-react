@@ -14,6 +14,8 @@ const ANIMATION_SPEED_MS = 20;
 const NUMBER_OF_ANIMATIONS = 3;
 const NUMBER_OF_VALUES = 2; // if two means we are dealing with overwriting, otherwise is color change
 
+//NEED TO REFACTOR
+
 export default class SortingVisualizer extends React.Component {
   constructor(props) {
     super(props);
@@ -153,11 +155,11 @@ export default class SortingVisualizer extends React.Component {
           ></div>
         ))}
         <button onClick={() => this.resetArray()}>Generate New Array</button>
-        <button onClick={() => this.mergeSort()}>Merge Sort</button>
         <button onClick={() => this.selectionSort()}>Selection Sort</button>
         <button onClick={() => this.insertionSort()}>Insertion Sort</button>
         <button onClick={() => this.shellSort()}>Shell Sort</button>
-        <button onClick={() => this.resetArray()}>Bubble Sort</button>
+        <button onClick={() => this.mergeSort()}>Merge Sort</button>
+        {/* <button onClick={() => this.resetArray()}>Bubble Sort</button> */}
       </div>
     );
   }
