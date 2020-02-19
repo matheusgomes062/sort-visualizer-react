@@ -15,7 +15,6 @@ const NUMBER_OF_ANIMATIONS = 3;
 const NUMBER_OF_VALUES = 2; // if two means we are dealing with overwriting, otherwise is color change
 
 //NEED TO REFACTOR
-
 export default class SortingVisualizer extends React.Component {
   constructor(props) {
     super(props);
